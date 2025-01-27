@@ -1,8 +1,15 @@
+import BookList from "@/components/BookList";
+import BookOverview from "@/components/BookOverview";
 import { Button } from "@/components/ui/button";
+import { sampleBooks } from "@/constants";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <Button >ShatCn</Button >
+    <>
+      <BookOverview {...sampleBooks[0]} />
+      <BookList title="Latest Books" books={sampleBooks} containerClassname="mt-20" />
+
+    </>
   );
 }
