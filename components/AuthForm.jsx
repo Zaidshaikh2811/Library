@@ -61,7 +61,7 @@ const AuthForm = ({ type, schema, defaultValues, onSubmit }) => {
                                         <FormControl>
 
                                             {
-                                                field.name == "universityCard" ? <ImageUpload /> : <Input className="form-input" required type={FIELD_TYPES[field.name]} {...field} />
+                                                field.name == "universityCard" ? <ImageUpload onFileChange={field.onChange} /> : <Input className="form-input" required type={FIELD_TYPES[field.name]} {...field} />
                                             }
                                         </FormControl>
                                         <FormDescription>
