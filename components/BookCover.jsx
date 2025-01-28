@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import React from 'react'
+import BookCoverSvg from './BookCoversvg'
 
 const variantStyles = {
     extraSmall: "book-cover_extra_small",
@@ -22,7 +23,7 @@ const BookCover = ({
                 variantStyles[variant],
                 className,
             )}
-        >BookSide SVG
+        > <BookCoverSvg coverColor={coverColor} />
             <div
                 className="absolute z-10"
                 style={{ left: "12%", width: "87.5%", height: "88%" }}
