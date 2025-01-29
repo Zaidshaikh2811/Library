@@ -34,17 +34,18 @@ const AuthForm = ({ type, schema, defaultValues, onSubmit }) => {
     const handleSubmit = async (data) => {
         const result = await onSubmit(data)
         if (result.success) {
-            console.log("Success" + result);
 
-            toast.success({
+
+            toast({
                 title: "Success",
-                description: isSignIn ? "Sign In Successfully" : "Sign Up Successfully"
+                description: isSignIn ? "Sign In Successfully" : "Sign Up Successfully",
+
             })
 
             router.push("/")
         }
         else {
-            toast.error({
+            toast({
                 title: `Error ${isSignIn ? "Sign In" : "Sign Up"}`,
                 description: result.error ?? "Something went wrong",
                 variant: "destructive"

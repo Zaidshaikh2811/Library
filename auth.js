@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import { db } from "./database/drizzle"
 import { compare } from "bcryptjs";
 import { users } from "@/database/Schema"
+import { eq } from "drizzle-orm";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
     session: {
@@ -56,7 +57,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         async session({ session, token }) {
             if (session.user) {
                 session.user.id = token.id;
-                session.user.email = token.email;
+
                 session.user.name = token.name;
             }
             return session
