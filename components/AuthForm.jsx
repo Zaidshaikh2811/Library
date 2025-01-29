@@ -17,19 +17,40 @@ import { Input } from "@/components/ui/input"
 import Link from 'next/link'
 import { FIELD_NAMES, FIELD_TYPES } from '@/constants'
 import ImageUpload from './ImageUpload'
+import { toast, useToast } from '@/hooks/use-toast'
+import { desc } from 'drizzle-orm'
+import { useRouter } from 'next/navigation'
 
 const AuthForm = ({ type, schema, defaultValues, onSubmit }) => {
-
+    const router = useRouter()
     const isSignIn = type === "SIGN-IN"
-
+    const { toast } = useToast()
 
     const form = useForm({
         resolver: zodResolver(schema),
         defaultValues
     })
 
-    const handleSubmit = (data) => {
-        onSubmit(data)
+    const handleSubmit = async (data) => {
+        const result = await onSubmit(data)
+        if (result.success) {
+            console.log("Success" + result);
+
+            toast.success({
+                title: "Success",
+                description: isSignIn ? "Sign In Successfully" : "Sign Up Successfully"
+            })
+
+            router.push("/")
+        }
+        else {
+            toast.error({
+                title: `Error ${isSignIn ? "Sign In" : "Sign Up"}`,
+                description: result.error ?? "Something went wrong",
+                variant: "destructive"
+            })
+
+        }
     }
 
 

@@ -2,8 +2,12 @@ import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { db } from "./database/drizzle"
 import { compare } from "bcryptjs";
+import { users } from "@/database/Schema"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+    session: {
+        strategy: "jwt"
+    },
     providers: [
         CredentialsProvider({
 
@@ -14,15 +18,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
 
                 const user = await db
-                    .select()
-                    .from(db.users).where(eq(db.users.email, credentials.email.toString()))
-                    .limit(1).all();
+                    .select(users)
+                    .from(users).where(eq(users.email, credentials.email.toString()))
+                    .limit(1);
 
                 if (user.length === 0) {
                     return null;
                 }
 
-                const isPasswordValid = await compare(credentials.password.toString(), user[0].password)
+                const isPasswordValid = await compare(credentials.password.toString(),
+                    user[0].password)
+
                 if (!isPasswordValid) {
                     return null;
                 }
@@ -56,7 +62,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             return session
         }
     },
-    session: {
-        strategy: "jwt"
-    },
+
 })
+

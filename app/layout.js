@@ -2,7 +2,8 @@
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 import localFont from "next/font/local";
-
+import { SessionProvider } from "next-auth/react"
+import { auth } from "@/auth";
 
 const ibmPlexSans = localFont({
   src: [
@@ -31,16 +32,20 @@ export const metadata = {
   description: " BookWise is a book Booking platform",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const session = await auth()
   return (
     <html lang="en">
-      <body
-        className={`${ibmPlexSans.variable} ${bebbasNeue.variable} antialiased`}
+      <SessionProvider session={session}>
 
-      >
-        {children}
-        <Toaster />
-      </body>
+        <body
+          className={`${ibmPlexSans.variable} ${bebbasNeue.variable} antialiased`}
+
+        >
+          {children}
+          <Toaster />
+        </body>
+      </SessionProvider>
     </html>
   );
 }
