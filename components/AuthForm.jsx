@@ -20,6 +20,7 @@ import ImageUpload from './ImageUpload'
 import { toast, useToast } from '@/hooks/use-toast'
 import { desc } from 'drizzle-orm'
 import { useRouter } from 'next/navigation'
+import axios from 'axios'
 
 const AuthForm = ({ type, schema, defaultValues, onSubmit }) => {
     const router = useRouter()
@@ -32,26 +33,51 @@ const AuthForm = ({ type, schema, defaultValues, onSubmit }) => {
     })
 
     const handleSubmit = async (data) => {
-        const result = await onSubmit(data)
-        if (result.success) {
+        console.log(isSignIn);
+
+        if (!isSignIn) {
+            console.log("INSIDE SIGNIN");
 
 
-            toast({
-                title: "Success",
-                description: isSignIn ? "Sign In Successfully" : "Sign Up Successfully",
+            const emailData = {
+                sender: {
+                    name: "my app"
+                    , address: "zaid@gmail.com"
+                },
+                recipients: [
+                    {
+                        name: "receiver",
+                        address: "zaidshaikhhulk@gmail.com"
+                    }
+                ], subject: "subject", message: "message", otp: "1234"
+            }
 
-            })
+            const resp = await axios.post("/api/email", emailData)
+            console.log(resp);
 
-            router.push("/")
+
+
         }
-        else {
-            toast({
-                title: `Error ${isSignIn ? "Sign In" : "Sign Up"}`,
-                description: result.error ?? "Something went wrong",
-                variant: "destructive"
-            })
+        // const result = await onSubmit(data)
+        // if (result.success) {
 
-        }
+
+        //     toast({
+        //         title: "Success",
+        //         description: isSignIn ? "Sign In Successfully" : "Sign Up Successfully",
+
+        //     })
+
+        //     router.push("/")
+        // }
+        // else {
+        //     toast({
+        //         title: `Error ${isSignIn ? "Sign In" : "Sign Up"}`,
+        //         description: result.error ?? "Something went wrong",
+        //         variant: "destructive"
+        //     })
+
+        // }
     }
 
 
