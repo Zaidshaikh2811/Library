@@ -15,6 +15,90 @@
       "when": 1738337428011,
       "tag": "0001_daily_captain_britain",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1738342201909,
+      "tag": "0002_goofy_zaran",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1738344745748,
+      "tag": "0003_clumsy_night_nurse",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1738344966928,
+      "tag": "0004_slippery_rocket_racer",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1738345132052,
+      "tag": "0005_quick_colleen_wing",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1738345478874,
+      "tag": "0006_amazing_malice",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1738345511164,
+      "tag": "0007_previous_jackpot",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1738345897185,
+      "tag": "0008_cuddly_imperial_guard",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1738346023413,
+      "tag": "0009_tiresome_sue_storm",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1738346563532,
+      "tag": "0010_sour_jackpot",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1738346970189,
+      "tag": "0011_special_corsair",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1738347006638,
+      "tag": "0012_sweet_omega_red",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1738347158208,
+      "tag": "0013_lying_bastion",
+      "breakpoints": true
     }
   ]
 }

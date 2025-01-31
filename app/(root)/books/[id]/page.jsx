@@ -1,3 +1,4 @@
+import { auth } from '@/auth'
 import BookOverview from '@/components/BookOverview'
 import BookVideo from '@/components/BookVideo'
 import { db } from '@/database/drizzle'
@@ -8,6 +9,7 @@ import React from 'react'
 
 const page = async ({ params }) => {
     const id = (await params).id
+    const session = await auth();
 
     const [bookDetails] = await db.select().from(books).where(eq(books.id, id))
     if (!bookDetails) redirect("/404")
@@ -15,7 +17,7 @@ const page = async ({ params }) => {
 
     return (
         <div>
-            <BookOverview {...bookDetails} />
+            <BookOverview {...bookDetails} userId={session?.user.id} />
             <div className="book-details">
                 <div className="flex-[1.5]">
                     <section className='flex flex-col gap-7'>

@@ -17,7 +17,7 @@ export default async function Home() {
 
   return (
     <>
-      <BookOverview {...latestBooks[0]} />
+      <BookOverview {...latestBooks[0]} userId={session?.user.id} />
       <BookList title="Latest Books" books={latestBooks} containerClassname="mt-20" />
 
     </>
