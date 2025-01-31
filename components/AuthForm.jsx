@@ -1,6 +1,6 @@
 
 
-import React from 'react'
+import React, { useState } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
@@ -21,11 +21,19 @@ import { toast, useToast } from '@/hooks/use-toast'
 import { desc } from 'drizzle-orm'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
+import { OTPModal } from './OTPModal'
+
+const generateOTP = () => {
+    return Math.floor(1000 + Math.random() * 9000).toString();
+};
 
 const AuthForm = ({ type, schema, defaultValues, onSubmit }) => {
     const router = useRouter()
     const isSignIn = type === "SIGN-IN"
     const { toast } = useToast()
+    const [generatedOtp, setGeneratedOtp] = useState('');
+    const [showOtpModal, setShowOtpModal] = useState(false);
+    const [userData, setUserData] = useState(null);
 
     const form = useForm({
         resolver: zodResolver(schema),
@@ -33,56 +41,83 @@ const AuthForm = ({ type, schema, defaultValues, onSubmit }) => {
     })
 
     const handleSubmit = async (data) => {
-        console.log(isSignIn);
+
 
         if (!isSignIn) {
-            console.log("INSIDE SIGNIN");
 
+
+            const generatedOTP = generateOTP();
+            setGeneratedOtp(generatedOTP);
+            setUserData(data);
 
             const emailData = {
                 sender: {
-                    name: "my app"
+                    name: "BookWise"
                     , address: "zaid@gmail.com"
                 },
                 recipients: [
                     {
-                        name: "receiver",
-                        address: "zaidshaikhhulk@gmail.com"
+                        name: data.fullname,
+                        address: data.email
                     }
-                ], subject: "subject", message: "message", otp: "1234"
+                ], subject: "OTP Verification", message: `Your verification code is: ${generatedOTP}`,
+                otp: generatedOTP
             }
 
-            const resp = await axios.post("/api/email", emailData)
-            console.log(resp);
 
+            try {
+                await axios.post("/api/email", emailData);
+                setShowOtpModal(true);
+            } catch (error) {
+                console.error('Failed to send OTP:', error);
+            }
 
 
         }
-        // const result = await onSubmit(data)
-        // if (result.success) {
 
 
-        //     toast({
-        //         title: "Success",
-        //         description: isSignIn ? "Sign In Successfully" : "Sign Up Successfully",
-
-        //     })
-
-        //     router.push("/")
-        // }
-        // else {
-        //     toast({
-        //         title: `Error ${isSignIn ? "Sign In" : "Sign Up"}`,
-        //         description: result.error ?? "Something went wrong",
-        //         variant: "destructive"
-        //     })
-
-        // }
     }
+
+    const handleOtpVerify = async (enteredOtp) => {
+        if (enteredOtp === generatedOtp) {
+            try {
+                await onSubmit(userData)
+
+                setShowOtpModal(false);
+                toast({
+                    title: "Success",
+                    description: isSignIn ? "Sign In Successfully" : "Sign Up Successfully",
+
+
+                })
+                router.push("/")
+            } catch (error) {
+                toast({
+                    title: "Error",
+                    description: "Something went wrong",
+                    variant: "destructive"
+                })
+                console.error('Registration failed:', error);
+            }
+        } else {
+            toast({
+                title: "Error",
+                description: "Invalid OTP",
+                variant: "destructive"
+            })
+        }
+    };
+
 
 
     return (
         <div className='flex flex-col gap-4'>
+            <OTPModal
+                isOpen={showOtpModal}
+                onClose={() => setShowOtpModal(false)}
+                onVerify={handleOtpVerify}
+                email={userData?.email}
+            />
 
             <h1 className='text-2xl font-semibold text-white'>
                 {
