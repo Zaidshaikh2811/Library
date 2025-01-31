@@ -3,9 +3,9 @@ import ImageKit from "imagekit";
 import { NextResponse } from "next/server";
 
 const imageKit = new ImageKit({
-    publicKey: config.env.imageKet.publicKey,
-    urlEndpoint: config.env.imageKet.urlEndpoint,
-    privateKey: config.env.imageKet.privateKey,
+    publicKey: config.env.imageKit.publicKey,
+    urlEndpoint: config.env.imageKit.urlEndpoint,
+    privateKey: config.env.imageKit.privateKey,
 })
 
 

@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input"
 import Link from 'next/link'
 import { FIELD_NAMES, FIELD_TYPES } from '@/constants'
-import ImageUpload from './ImageUpload'
+import ImageUpload from './FileUpload'
 import { toast, useToast } from '@/hooks/use-toast'
 import { desc } from 'drizzle-orm'
 import { useRouter } from 'next/navigation'
@@ -73,6 +73,18 @@ const AuthForm = ({ type, schema, defaultValues, onSubmit }) => {
             }
 
 
+        }
+        else if (isSignIn) {
+
+            await onSubmit(data)
+
+            toast({
+                title: "Success",
+                description: isSignIn ? "Sign In Successfully" : "Sign Up Successfully",
+
+
+            })
+            router.push("/")
         }
 
 
@@ -144,7 +156,13 @@ const AuthForm = ({ type, schema, defaultValues, onSubmit }) => {
                                         <FormControl>
 
                                             {
-                                                field.name == "universityCard" ? <ImageUpload onFileChange={field.onChange} /> : <Input className="form-input" required type={FIELD_TYPES[field.name]} {...field} />
+                                                field.name == "universityCard" ? <ImageUpload
+                                                    type="image"
+                                                    accept="image/*"
+                                                    placeholder="Upload University Card"
+                                                    folder="ids"
+                                                    variant='dark'
+                                                    onFileChange={field.onChange} /> : <Input className="form-input" required type={FIELD_TYPES[field.name]} {...field} />
                                             }
                                         </FormControl>
                                         <FormDescription>

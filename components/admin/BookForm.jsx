@@ -22,6 +22,8 @@ import { toast, useToast } from '@/hooks/use-toast'
 import { useRouter } from 'next/navigation'
 import { bookSchema } from '@/lib/validation'
 import { Textarea } from '../ui/textarea'
+import ImageUpload from '../FileUpload'
+import ColorPicker from './ColorPicker'
 
 
 
@@ -50,6 +52,7 @@ const BookForm = ({ type, ...book }) => {
     const handleSubmit = async (data) => {
 
 
+        console.log(data);
 
 
     }
@@ -171,7 +174,16 @@ const BookForm = ({ type, ...book }) => {
                             <FormItem>
                                 <FormLabel className="capitalize">Book Image</FormLabel>
                                 <FormControl>
+                                    <ImageUpload
+                                        type="image"
+                                        accept="image/*"
+                                        placeholder="Book Cover"
+                                        folder="books/covers"
+                                        variant="light"
+                                        onFileChange={field.onChange}
+                                        value={field.value}
 
+                                    />
                                 </FormControl>
 
                                 <FormMessage />
@@ -185,7 +197,10 @@ const BookForm = ({ type, ...book }) => {
                             <FormItem>
                                 <FormLabel className="capitalize">Primary Color</FormLabel>
                                 <FormControl>
-
+                                    <ColorPicker
+                                        onPickerChange={field.onChange}
+                                        value={field.value}
+                                    />
                                 </FormControl>
 
                                 <FormMessage />
@@ -222,7 +237,16 @@ const BookForm = ({ type, ...book }) => {
                             <FormItem>
                                 <FormLabel className="capitalize">Book Trailer</FormLabel>
                                 <FormControl>
+                                    <ImageUpload
+                                        type="video"
+                                        accept="video/*"
+                                        placeholder="Upload a book Trailer"
+                                        folder="books/videos"
+                                        variant="light"
+                                        onFileChange={field.onChange}
+                                        value={field.value}
 
+                                    />
                                 </FormControl>
 
                                 <FormMessage />

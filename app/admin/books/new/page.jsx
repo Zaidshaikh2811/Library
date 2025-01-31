@@ -14,20 +14,7 @@ const page = () => {
             <section className='w-full max-w-2xl'>
 
                 <BookForm
-                    defaultValues={
-                        {
-                            title: "",
-                            genre: "",
-                            author: "",
-                            rating: "",
-                            totalCopies: "",
-                            description: "",
-                            coverUrl: "",
-                            coverColor: "",
-                            videoUrl: "",
-                            summary: "",
-                        }
-                    }
+
                 />
             </section>
         </div>
