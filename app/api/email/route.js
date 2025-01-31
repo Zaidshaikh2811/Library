@@ -100,7 +100,7 @@ export async function POST(req) {
         const response = await sendEmail(body)
         return new Response(JSON.stringify(response), { status: 200 })
     } catch (error) {
-        console.log(error)
+
         return new Response(error, { status: 500 })
     }
 }

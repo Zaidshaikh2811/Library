@@ -24,6 +24,7 @@ import { bookSchema } from '@/lib/validation'
 import { Textarea } from '../ui/textarea'
 import ImageUpload from '../FileUpload'
 import ColorPicker from './ColorPicker'
+import { createBook } from '@/lib/admin/actions/book'
 
 
 
@@ -52,7 +53,31 @@ const BookForm = ({ type, ...book }) => {
     const handleSubmit = async (data) => {
 
 
-        console.log(data);
+
+        try {
+            const response = await createBook(data);
+
+            if (response.success) {
+                toast({
+                    title: "Success",
+                    description: "Book Created Successfully",
+                    variant: "default",
+                });
+                router.push("/admin/books");
+            } else {
+                toast({
+                    title: "Error",
+                    description: "Something went wrong",
+                    variant: "destructive",
+                });
+            }
+        } catch (err) {
+            toast({
+                title: "Error",
+                description: err,
+                variant: "destructive",
+            });
+        }
 
 
     }

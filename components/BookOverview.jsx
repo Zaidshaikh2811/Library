@@ -3,7 +3,7 @@ import React from 'react'
 import { Button } from './ui/button'
 import BookCover from './BookCover'
 
-const BookOverview = ({ title, author, genre, rating, total_copies, available_copies, description, color, cover }) => {
+const BookOverview = ({ title, author, genre, rating, totalCopies, availableCopies, description, color, cover }) => {
     return (
         <div className='book-overview'>
             <div className="flex flex-1 flex-col gap-5">
@@ -20,8 +20,8 @@ const BookOverview = ({ title, author, genre, rating, total_copies, available_co
                 </div>
 
                 <div className="book-copies">
-                    <p>Total Books <span>{total_copies}</span></p>
-                    <p>Available Books <span>{available_copies}</span></p>
+                    <p>Total Books <span>{totalCopies}</span></p>
+                    <p>Available Books <span>{availableCopies}</span></p>
                 </div>
                 <p className='book-description'>
                     {description}

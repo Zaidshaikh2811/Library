@@ -22,3 +22,22 @@ export const users = pgTable('users', {
 });
 
 
+
+export const books = pgTable("books", {
+    id: uuid("id").notNull().primaryKey().defaultRandom().unique(),
+    title: varchar("title").notNull(),
+    author: varchar("author").notNull(),
+    genre: varchar("genre").notNull(),
+    rating: integer("rating").notNull(),
+    totalCopies: integer("total_copies").notNull().default(1),
+    availableCopies: integer("available_copies").notNull().default(0),
+    description: text("description").notNull(),
+    coverColor: varchar("cover_color").notNull(),
+    coverUrl: text("cover_url").notNull(),
+    videoUrl: text("vide_url").notNull(),
+    summary: text("summary").notNull(),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at").notNull().defaultNow(),
+})
+
+

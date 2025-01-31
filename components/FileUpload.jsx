@@ -48,7 +48,7 @@ const ImageUpload = ({ onFileChange, type, accept, placeholder, folder, variant 
     const [file, setFile] = useState(null);
 
     const onError = (err) => {
-        console.log(err);
+
         toast({
             title: `${type} Uploaded Failed`,
             description: ` ${err.message}`,
