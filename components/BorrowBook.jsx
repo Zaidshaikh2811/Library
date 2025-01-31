@@ -28,6 +28,7 @@ const BorrowBook = ({ userId, bookId, borrowingEligibility: {
         try {
 
             const response = await borrowBook(bookId, userId)
+            console.log(response);
 
             if (response.success) {
 
@@ -37,6 +38,13 @@ const BorrowBook = ({ userId, bookId, borrowingEligibility: {
                     variant: "default"
                 })
                 router.push("/books")
+            }
+            else {
+                toast({
+                    title: "Error",
+                    description: response.error,
+                    variant: "destructive"
+                })
             }
         } catch (error) {
             console.log(error);
